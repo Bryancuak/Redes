@@ -15,15 +15,49 @@
     se cambia de valor a 0 y te muestra el mensaje de que la ip no es valida, por 
     ultimo imprime la ip en binario.
 */
-
 void decimalABinario(int num){
-    if (num>1)
-    {
-        decimalABinario(num / 2);
+    int bits[8] = {0}; // Array para almacenar los dígitos binarios
+    int i = 0;
+
+    while (num > 0) {
+        bits[i] = num % 2;
+        num /= 2;
+        i++;
     }
-    printf("%d", num % 2 );
-    
+
+    // Rellena con ceros a la izquierda si es necesario
+    while (i < 8) {
+        bits[i] = 0;
+        i++;
+    }
+
+    // Imprime los dígitos binarios en orden inverso (de derecha a izquierda)
+    for (i = 7; i >= 0; i--) {
+        printf("%d", bits[i]);
+    }
 }
+
+
+int combinaciones(bits_prestados){
+    if (bits_prestados < 1) return 0;
+    if (bits_prestados > 23) return 0;
+
+    int n = bits_prestados;
+    //combinaciones = 2 ^ n; //4
+    int bits[2] ={0,1};
+    int vector[23] = {bits_prestados};
+    printv(vector); //[0,0]
+
+    for (int i = 0; i < combinaciones; ++i)
+    {
+        printv(vector);
+    }
+    
+
+
+
+}
+
 
 int main()
 {
@@ -41,10 +75,10 @@ int main()
 
     if (cantidadPartes == 4) {
          // Verificar si cada parte de la IP es un numero entero
-        if (!(parte1 >= 0 && parte1 <= 255) ||
-            !(parte2 >= 0 && parte2 <= 255) ||
-            !(parte3 >= 0 && parte3 <= 255) ||
-            !(parte4 >= 0 && parte4 <= 255)) {
+        if (!((parte1 >= 0 && parte1 <= 255) ||
+            (parte2 >= 0 && parte2 <= 255) ||
+            (parte3 >= 0 && parte3 <= 255) ||
+            (parte4 >= 0 && parte4 <= 255))) {
             esNumeroEntero = 0;
         }
     } else {
@@ -52,7 +86,8 @@ int main()
     }
 
     if (esNumeroEntero) {
-        printf("IP en binario: ");
+        printf("IP en decimal: %s", ip);
+        printf("\nIP en binario: ");
         decimalABinario(parte1);
         printf(".");
         decimalABinario(parte2);
